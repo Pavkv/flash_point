@@ -1,0 +1,31 @@
+.app {
+  font-family: Roboto, SansSerif, sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.app_light {
+  background-image: url("../../assets/background.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  color: #fff;
+}
+
+.app_dark {
+  background-color: #fff;
+  color: #1a1b22;
+}
+
+.overlay {
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.overlay_disabled {
+  background: transparent;
+  backdrop-filter: none;
+}

@@ -1,0 +1,72 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #fff;
+  padding: 2vw calc(100vw * 0.07);
+}
+
+.footer__license {
+  font-size: 1rem;
+  line-height: 1.375;
+  color: #b6bcbf;
+  margin-right: auto;
+}
+
+.footer__buttons {
+  display: flex;
+  gap: 2vw;
+}
+
+.footer__button {
+  color: #1a1b22;
+  border: none;
+  padding: 0;
+  opacity: 0.6;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.footer__button:hover {
+  opacity: 1;
+}
+
+.footer__github,
+.footer__linkedin {
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+}
+
+.footer__github {
+  background-image: url("../../assets/github-mark.svg");
+}
+
+.footer__linkedin {
+  background-image: url("../../assets/linkedin-mark.svg");
+}
+
+@media screen and (max-width: 767px) {
+  .footer {
+    padding: 22px 16px;
+    gap: 38px;
+  }
+
+  .footer__buttons {
+    width: 100%;
+    gap: 24px;
+  }
+
+  .footer__home {
+    margin-right: auto;
+  }
+
+  .footer__license {
+    margin-bottom: 12px;
+    order: 1;
+  }
+}

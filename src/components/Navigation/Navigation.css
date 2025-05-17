@@ -1,0 +1,133 @@
+.nav {
+  display: flex;
+  flex-direction: row;
+  gap: 4.5vw;
+  list-style: none;
+  font-weight: 500;
+  padding: 0;
+  align-items: center;
+}
+
+.nav__link {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -140%;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: 120%;
+  height: 2px;
+  transition: transform 0.3s ease;
+}
+
+.nav__link_light:after {
+  background-color: #fff;
+}
+
+.nav__link_dark:after {
+  background-color: #1a1b22;
+}
+
+.nav__link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.nav__user {
+  border-radius: 100px;
+  padding: 12px 19px;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.nav__user_light {
+  border: 1px solid #fff;
+}
+
+.nav__user_dark {
+  border: 1px solid #000;
+}
+
+.nav__user_light:hover {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.nav__user_dark:hover {
+  border: 1px solid rgba(26, 27, 34, 0.7);
+}
+
+.nav__user_logout {
+  background-repeat: no-repeat;
+  background-size: 24px;
+  background-position: right 12px center;
+  background-color: transparent;
+  padding: 0.8vw 54px 0.8vw 19px;
+}
+
+.nav__user_logout_light {
+  background-image: url("../../assets/logout-white-icon.svg");
+}
+
+.nav__user_logout_dark {
+  background-image: url("../../assets/logout-black-icon.svg");
+}
+
+@media screen and (max-width: 1024px) {
+  .nav {
+    font-size: 1rem;
+  }
+
+  .nav__link::after {
+    bottom: -130%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav__mobile {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    width: calc(100vw - 32px);
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 16px 16px 24px;
+    gap: 22px;
+  }
+
+  .nav__mobile_light {
+    background-color: #1a1b22;
+  }
+
+  .nav__mobile_dark {
+    background-color: #fff;
+  }
+
+  .nav__link {
+    width: 100%;
+  }
+
+  .nav__link::after {
+    display: none;
+  }
+
+  .nav__user {
+    display: flex;
+    width: calc(100vw - 32px);
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  .nav__user_logout {
+    background-position: left 52vw center;
+  }
+}
