@@ -12,6 +12,8 @@ This is the frontend portion of the **Flash Point** application. It allows users
 
 ## Web Link
 
+https://pavkv.github.io/flash_point/
+
 ---
 
 ## 📌 Description
