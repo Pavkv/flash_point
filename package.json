@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://flashpoint.twilightparadox.com",
   "scripts": {
     "format": "prettier --write .",
     "dev": "node_modules/.bin/vite --open",
@@ -10,7 +11,7 @@
     "lint": "node_modules/.bin/eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "node_modules/.bin/vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./dist/* pavelzobov123@whatowearexpress.twilightparadox.com:/home/pavelzobov123/frontend"
+    "deploy": "npm run build && scp -r ./dist/* pavelzobov123@flashpoint.twilightparadox.com:/home/pavelzobov123/flash_point_front"
   },
   "dependencies": {
     "react": "^19.1.0",
