@@ -6,7 +6,7 @@ import App from "./components/App/App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter basename="/flash_point/">
+    <BrowserRouter basename=''>
       <App />
     </BrowserRouter>
   </StrictMode>,

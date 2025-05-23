@@ -1,4 +1,4 @@
-import { getNews } from "../../utils/newsApi.js";
+import getNews from "../../utils/getNews.js";
 
 export default function SearchForm({ setSearchResults, setPreLoading }) {
   const handleSubmit = (e) => {

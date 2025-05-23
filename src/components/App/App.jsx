@@ -95,7 +95,11 @@ export default function App() {
     setLoading(false);
     toggleMobileMenu();
   };
-  const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
+  const toggleMobileMenu = () => setMobileMenuOpen((prev) => {
+    if (isMobile) {
+      return !prev;
+    }
+  });
 
   const handleArticle = (isSaved, article) => {
     const { isSaved: _, ...articleData } = article;
