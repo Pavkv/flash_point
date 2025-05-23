@@ -2,9 +2,13 @@
 
 This is the frontend portion of the **Flash Point** application. It allows users to search for news articles by keyword, view the results, and save favorite articles (when logged in). The app is responsive, supports mobile and desktop layouts, and integrates with the [News API](https://newsapi.org/).
 
+---
+
 ## Main Page
 
 <img width="1470" alt="image" src="https://github.com/user-attachments/assets/1963b3c5-6337-4369-bdaf-8f4f298d7f9b" />
+
+---
 
 ## Saved Articles Page
 
