@@ -1,5 +1,9 @@
 import ModalWithForm from "./ModalWithForm.jsx";
-// import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../context/CurrentUserContext.js";
+import { getCurrentUser, signIn } from "../../utils/auth.js";
+import { getToken, setToken } from "../../utils/token.js";
+import { getUserArticles } from "../../utils/api.js";
 
 export default function LoginModal({
   isLoading,
@@ -7,26 +11,37 @@ export default function LoginModal({
   onOpen,
   onClose,
   isOpen,
+  setLoggedIn,
+  setSavedArticles,
 }) {
-  // const navigate = useNavigate();
+  const { setCurrentUser } = useContext(CurrentUserContext);
+
   const handleSubmit = (values) => {
-    // const userData = {
-    //   email: values["sign-in-email"],
-    //   password: values["sign-in-password"],
-    // };
-    // setLoading(true);
-    // return signIn(userData)
-    //     .then((user) => {
-    //         if (user.token) {
-    //             setToken(user.token);
-    //             return getCurrentUser(user.token);
-    //         }
-    //     })
-    //     .then((user) => {
-    //         setCurrentUser(user.data);
-    //         setLoggedIn(true);
-    //         navigate('/profile');
-    //     });
+    const userData = {
+      email: values["sign-in-email"],
+      password: values["sign-in-password"],
+    };
+    setLoading(true);
+    return signIn(userData)
+      .then((user) => {
+        if (user.token) {
+          setToken(user.token);
+          return getCurrentUser(user.token);
+        }
+      })
+      .then((user) => {
+        setCurrentUser(user.data);
+        setLoggedIn(true);
+        return getUserArticles(getToken());
+      })
+      .then((data) => {
+        setSavedArticles(
+          data.map((article) => ({
+            ...article,
+            isSaved: true,
+          })),
+        );
+      });
   };
 
   return (

@@ -3,27 +3,27 @@ import { getNews } from "../../utils/newsApi.js";
 export default function SearchForm({ setSearchResults, setPreLoading }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPreLoading("loading");
-    const searchValue = e.target.elements.search.value;
+    const searchValue = e.target.elements.search.value.trim();
+
     if (searchValue.length < 2) {
       setPreLoading("idle");
       return;
     }
 
+    setPreLoading("loading");
     getNews(searchValue)
       .then((res) => {
-        if (res.articles.length === 0) {
-          setPreLoading("not-found");
-          return;
+        setPreLoading(res.articles.length ? "idle" : "not-found");
+        if (res.articles.length) {
+          setSearchResults(res.articles);
+          e.target.reset();
         }
-        setPreLoading("idle");
-        return setSearchResults([...res.articles]);
       })
       .catch(console.error);
   };
 
   return (
-    <form className="search-form" noValidate onSubmit={(e) => handleSubmit(e)}>
+    <form className="search-form" noValidate onSubmit={handleSubmit}>
       <fieldset className="search-form__fieldset">
         <label className="search-form__label">
           <input

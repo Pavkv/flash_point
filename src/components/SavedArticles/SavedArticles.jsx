@@ -1,21 +1,31 @@
-export default function SavedArticles({ savedArticles }) {
-  let keywords = savedArticles.map((article) => article.keyword);
+import { useContext } from "react";
+import { CurrentUserContext } from "../../context/CurrentUserContext.js";
 
-  if (keywords.length > 3) {
-    keywords =
-      keywords.slice(0, 3) + " and " + (savedArticles.length - 3) + " other";
-  }
+export default function SavedArticles({ savedArticles }) {
+  const { currentUser } = useContext(CurrentUserContext);
+
+  const keywords = [
+    ...new Set(savedArticles.map((article) => article.keyword)),
+  ];
+  const formattedKeywords =
+    keywords.length > 3
+      ? `${keywords.slice(0, 3).join(", ")} and ${keywords.length - 3} other`
+      : keywords.join(", ");
 
   return (
     <div className="saved-articles">
-      <p className="saved-articles__text">Saved Articles</p>
-      <h1 className="saved-articles__header">
-        Elise, you have saved {keywords.length} article
-        {keywords.length > 1 ? "s" : ""}
-      </h1>
-      <p className="saved-articles__keywords">
-        By keywords: <strong>{keywords}</strong>
-      </p>
+      <div className="saved-articles__container">
+        <p className="saved-articles__text">Saved Articles</p>
+        <h1 className="saved-articles__header">
+          {currentUser.username}, you have saved {savedArticles.length} article
+          {savedArticles.length !== 1 ? "s" : ""}
+        </h1>
+        {keywords.length > 0 && (
+          <p className="saved-articles__keywords">
+            By keywords: <strong>{formattedKeywords}</strong>
+          </p>
+        )}
+      </div>
     </div>
   );
 }

@@ -39,8 +39,8 @@
 .news-card__info {
   display: flex;
   flex-direction: column;
-  gap: 1.1vw;
-  padding: 1.6vw 1.3vw;
+  gap: 16px;
+  padding: 24px;
   height: 50%;
 }
 
@@ -52,8 +52,8 @@
 .news-card__info-title {
   font-family: "Roboto Slab", SansSerif, sans-serif;
   font-weight: 400;
-  font-size: 1.5vw;
-  line-height: 1.125;
+  font-size: 26px;
+  line-height: 30px;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -64,8 +64,8 @@
 
 .news-card__info-description {
   font-weight: 400;
-  font-size: 1.25vw;
-  line-height: 1.375;
+  font-size: 16px;
+  line-height: 24px;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -76,8 +76,8 @@
 
 .news-card__info-author {
   font-family: "Roboto Slab", sans-serif;
-  font-size: 1rem;
-  line-height: 1.25;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 700;
   letter-spacing: 0.4px;
   color: #b6bcbf;
@@ -86,8 +86,10 @@
 
 .news-card__handle-container {
   position: absolute;
-  inset: 1.6vw 1.6vw 0;
+  top: 24px;
+  right: 24px;
   display: flex;
+  width: 203px;
   height: 40px;
 }
 
@@ -132,13 +134,13 @@
   position: absolute;
   top: 0;
   right: 46px;
-  padding: 15px 1.3vw;
+  padding: 8px 26px;
   border-radius: 10px;
   background-color: #fff;
   color: #1a1b22;
   white-space: nowrap;
-  font-size: 0.75rem;
-  line-height: 1;
+  font-size: 14px;
+  line-height: 24px;
   font-weight: 500;
   opacity: 0;
   pointer-events: none;
@@ -151,14 +153,15 @@
 
 .news-card__keyword {
   position: absolute;
-  top: 0;
-  padding: 15px 1.3vw;
+  top: 24px;
+  left: 24px;
+  padding: 8px 22px;
   border-radius: 10px;
   background-color: #fff;
   color: #1a1b22;
   white-space: nowrap;
-  font-size: 0.75rem;
-  line-height: 1;
+  font-size: 14px;
+  line-height: 24px;
   font-weight: 500;
 }
 
@@ -167,24 +170,25 @@
     aspect-ratio: 1/2;
   }
 
+  .news-card__info {
+    padding: 16px;
+    gap: 8px;
+  }
+
   .news-card__info-title {
-    font-size: 2vw;
-    line-height: 1.125;
+    font-size: 20px;
+    line-height: 24px;
   }
 
   .news-card__info-description {
-    font-size: 1.5vw;
-    line-height: 1.25;
+    font-size: 16px;
+    line-height: 22px;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 430px) {
   .news-card {
     aspect-ratio: 1/1.5;
-  }
-
-  .news-card__info {
-    padding: 16px;
   }
 
   .news-card__info-title {
@@ -198,6 +202,12 @@
   }
 
   .news-card__handle-container {
-    inset: 16px 16px 0;
+    top: 16px;
+    right: 16px;
+  }
+
+  .news-card__keyword {
+    top: 16px;
+    left: 16px;
   }
 }

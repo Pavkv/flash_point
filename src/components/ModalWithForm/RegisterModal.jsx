@@ -1,5 +1,5 @@
 import ModalWithForm from "./ModalWithForm.jsx";
-// import { useNavigate } from "react-router-dom";
+import { signUp } from "../../utils/auth.js";
 
 export default function RegisterModal({
   isLoading,
@@ -8,26 +8,16 @@ export default function RegisterModal({
   onClose,
   isOpen,
 }) {
-  // const navigate = useNavigate();
   const handleSubmit = (values) => {
-    // const userData = {
-    //   email: values["sign-up-email"],
-    //   password: values["sign-up-password"],
-    //   username: values["sign-up-username"],
-    // };
-    // setLoading(true);
-    // return signIn(userData)
-    //     .then((user) => {
-    //         if (user.token) {
-    //             setToken(user.token);
-    //             return getCurrentUser(user.token);
-    //         }
-    //     })
-    //     .then((user) => {
-    //         setCurrentUser(user.data);
-    //         setLoggedIn(true);
-    //         navigate('/profile');
-    //     });
+    const userData = {
+      email: values["sign-up-email"],
+      password: values["sign-up-password"],
+      username: values["sign-up-username"],
+    };
+    setLoading(true);
+    return signUp(userData).catch((err) => {
+      throw err;
+    });
   };
 
   return (

@@ -2,26 +2,34 @@ import Navigation from "../Navigation/Navigation.jsx";
 import { useContext } from "react";
 import { MobileContext } from "../../context/MobileContext.js";
 
-export default function Header({ isLoggedIn, isDarkRoute, openModalClick }) {
+export default function Header({
+  isLoggedIn,
+  isDarkRoute,
+  openModalClick,
+  setLoggedIn,
+  signOut,
+}) {
   const { isMobile, isMobileMenuOpen, toggleMobileMenu } =
     useContext(MobileContext);
 
   const mobileButtonClass = `header__mobile-btn ${
     isMobileMenuOpen
-      ? `header__mobile-close_${isDarkRoute ? "light" : "dark"}`
-      : `header__mobile-toggle_${isDarkRoute ? "light" : "dark"}`
+      ? `header__mobile-close--${isDarkRoute ? "theme-light" : "theme-dark"}`
+      : `header__mobile-toggle--${isDarkRoute ? "theme-light" : "theme-dark"}`
   }`;
 
   const mobileMenuClass = `header__mobile ${
     isMobileMenuOpen
       ? isDarkRoute
-        ? "header__mobile_open_light"
-        : "header__mobile_open_dark"
+        ? "header__mobile--theme-light"
+        : "header__mobile--theme-dark"
       : ""
   }`;
 
   return (
-    <div className={`header header_${isDarkRoute ? "light" : "dark"}`}>
+    <header
+      className={`header header_${isDarkRoute ? "theme_light" : "theme_dark"}`}
+    >
       {isMobile ? (
         <>
           <div className={mobileMenuClass}>
@@ -38,6 +46,8 @@ export default function Header({ isLoggedIn, isDarkRoute, openModalClick }) {
                 isLoggedIn={isLoggedIn}
                 openModalClick={openModalClick}
                 isDarkRoute={isDarkRoute}
+                setLoggedIn={setLoggedIn}
+                signOut={signOut}
               />
             </nav>
           )}
@@ -50,10 +60,12 @@ export default function Header({ isLoggedIn, isDarkRoute, openModalClick }) {
               isLoggedIn={isLoggedIn}
               openModalClick={openModalClick}
               isDarkRoute={isDarkRoute}
+              setLoggedIn={setLoggedIn}
+              signOut={signOut}
             />
           </nav>
         </>
       )}
-    </div>
+    </header>
   );
 }

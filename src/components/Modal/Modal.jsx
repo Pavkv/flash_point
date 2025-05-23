@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { MobileContext } from "../../context/MobileContext.js";
 
 export default function Modal({ isOpen, onClose, children, name }) {
-  const { isMobile} = useContext(MobileContext);
+  const { isMobile } = useContext(MobileContext);
 
   useEffect(() => {
     const handleEsc = (e) => {

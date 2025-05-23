@@ -17,18 +17,14 @@ export const getNews = (query) => {
       articles: res.articles
         .filter((article) => article.urlToImage && article.author)
         .map((article) => ({
-          _id: crypto.randomUUID(),
           title: article.title,
           author: article.author,
           description: article.description,
-          image: article.urlToImage,
+          imageUrl: article.urlToImage,
           url: article.url,
-          date: new Date(article.publishedAt).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          }),
-          keyword: query,
+          date: article.publishedAt,
+          keyword: query.charAt(0).toUpperCase() + query.slice(1),
+          isSaved: false,
         })),
     };
   });

@@ -137,7 +137,12 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 767px) {
+.form__error_invalid {
+  margin: 0 auto -26px;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 430px) {
   .form {
     margin: 16px;
   }

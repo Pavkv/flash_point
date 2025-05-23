@@ -1,18 +1,23 @@
 .about {
+  background-color: #fff;
+}
+
+.about__container {
   display: flex;
   flex-wrap: wrap;
-  background-color: #fff;
-  padding: 5.5vw calc(100vw * 0.07);
+  padding: 80px 104px;
   color: #1a1b22;
-  gap: 3.8vw;
+  gap: 56px;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .about__image {
-  background-image: url("../../assets/pashas_picture.jpeg");
+  background-image: url("../../assets/pashas_picture.webp");
   background-size: cover;
   background-repeat: no-repeat;
-  width: 32.2vw;
-  height: 32.2vw;
+  width: 464px;
+  height: 464px;
   border-radius: 1000px;
   margin: auto 0;
 }
@@ -21,7 +26,6 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  width: 41.6vw;
   min-width: 0;
   overflow-wrap: break-word;
 }
@@ -31,7 +35,7 @@
   font-size: 40px;
   line-height: 46px;
   font-weight: 400;
-  margin: 0 0 1.6vw;
+  margin: 0 0 24px;
 }
 
 .about__text {
@@ -39,26 +43,33 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .about__container {
+    padding: 40px;
+    gap: 32px;
+  }
+
+  .about__image {
+    width: 232px;
+    height: 232px;
+  }
+
   .about__header {
     font-size: 30px;
     line-height: 40px;
-  }
-
-  .about__text-container {
-    width: 100%;
+    margin-bottom: 16px;
   }
 }
 
-@media screen and (max-width: 767px) {
-  .about {
+@media screen and (max-width: 430px) {
+  .about__container {
     flex-direction: column;
-    padding: 32px 16px;
+    padding: 32px 24px;
     gap: 24px;
   }
 
   .about__image {
-    width: 100%;
-    aspect-ratio: 1/1;
-    flex: 1;
+    width: 272px;
+    height: 272px;
+    align-self: center;
   }
 }

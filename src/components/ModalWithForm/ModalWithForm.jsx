@@ -12,7 +12,7 @@ export default function ModalWithForm({
   children,
   onSubmit,
   inputs,
-  setPreLoading,
+  setLoading,
   redirectText,
   prefillValues,
 }) {
@@ -24,10 +24,13 @@ export default function ModalWithForm({
     errors,
     isValid,
     setIsValid,
+    backendError,
   } = useFormAndValidation({
     onSubmit,
     onClose,
-    setPreLoading,
+    setLoading,
+    isOpen,
+    onOpen,
   });
 
   useEffect(() => {
@@ -93,6 +96,12 @@ export default function ModalWithForm({
         <h2 className="form__title">{title}</h2>
         <fieldset className="form__fieldset">
           {handleErrorsChildren}
+          <span
+            className="form__error form__error_invalid"
+            id="validation-error"
+          >
+            {backendError}
+          </span>
           <button
             type="submit"
             className={`form__button-submit ${!isValid ? "form__button-submit_disabled" : ""}`}

@@ -1,9 +1,9 @@
 .main {
   display: flex;
   flex-direction: column;
-  align-self: center;
-  width: calc(100vw * 0.42);
-  margin: 5.6vw auto;
+  justify-self: center;
+  width: 608px;
+  padding: 80px 0;
 }
 
 .main__header {
@@ -15,20 +15,33 @@
 }
 
 .main__text {
-  margin: 2.2vw 0 6vw;
+  margin: 32px 0 88px;
   font-weight: 400;
 }
 
 @media screen and (max-width: 1024px) {
+  .main {
+    width: 452px;
+    padding: 38px 0;
+  }
+
   .main__header {
     font-size: 36px;
     line-height: 40px;
   }
+
+  .main__text {
+    margin: 16px 0 48px;
+  }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 430px) {
   .main {
     width: calc(100vw - 32px);
-    margin: 30px auto;
+    padding: 30px 16px;
+  }
+
+  .main__text {
+    margin-bottom: 122px;
   }
 }

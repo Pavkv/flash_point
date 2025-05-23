@@ -1,7 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-// import ProtectedRoute from "../../utils/ProtectedRoute.jsx";
+import ProtectedRoute from "../../utils/ProtectedRoute.jsx";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import Footer from "../Footer/Footer.jsx";
@@ -12,115 +11,179 @@ import SavedArticles from "../SavedArticles/SavedArticles.jsx";
 import LoginModal from "../ModalWithForm/LoginModal.jsx";
 import RegisterModal from "../ModalWithForm/RegisterModal.jsx";
 import { MobileContext } from "../../context/MobileContext.js";
+import { CurrentUserContext } from "../../context/CurrentUserContext.js";
+import { getCurrentUser } from "../../utils/auth.js";
+import { addArticle, deleteArticle, getUserArticles } from "../../utils/api.js";
+import DeleteConfirmationModal from "../Modal/DeleteConfirmationModal.jsx";
+import SuccessfullyRegistrationModal from "../Modal/SuccessfullyRegistrationModal.jsx";
+import { getToken, removeToken } from "../../utils/token.js";
 
 export default function App() {
   const location = useLocation();
-  const [isDarkRoute, setDarkRoute] = useState(false);
-  const [isLoggedIn, setLoggedIn] = useState(true);
+  const [isDarkRoute, setDarkRoute] = useState(location.pathname === "/");
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isPreLoading, setPreLoading] = useState("idle");
   const [isLoading, setLoading] = useState(false);
   const [isModalOpen, setModalOpen] = useState("");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-  const [savedArticles, setSavedArticles] = useState([
-    {
-      author: "Joe Tilleli",
-      date: "April 29, 2025",
-      description:
-        "Bird Buddy, The Wonder Blocks smart modular habitat system for bees and butterflies and Petal smart camera launch today on Kickstarter.",
-      image: "https://gizmodo.com/app/uploads/2025/04/WonderBlocksHeader.jpg",
-      title:
-        "Bird Buddy’s Next Smart Gadget Isn’t Just for Birds—It’s for Saving Pollinators Too",
-      url: "https://gizmodo.com/bird-buddys-next-smart-gadget-isnt-just-for-birds-its-for-saving-pollinators-too-2000595029",
-      _id: "c97afe7e-d7fd-45e6-a334-a65e765ac20b",
-      keyword: "Pollinators",
-    },
-  ]);
+  const [visibleCards, setVisibleCards] = useState(
+    location.pathname === "/" ? 3 : 0,
+  );
+  const [savedArticles, setSavedArticles] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
 
-  useEffect(() => {
+  const resizeWindow = () => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth > 768) setMobileMenuOpen(false);
+      setIsMobile(window.innerWidth <= 430);
+      if (window.innerWidth > 430) setMobileMenuOpen(false);
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  };
+
+  useEffect(() => {
+    const jwt = getToken();
+    if (!jwt) return;
+
+    getCurrentUser(jwt)
+      .then((user) => {
+        setCurrentUser(user.data);
+        setLoggedIn(true);
+        return getUserArticles(jwt);
+      })
+      .then((data) => {
+        setSavedArticles(
+          data.map((article) => ({
+            ...article,
+            isSaved: true,
+          })),
+        );
+      })
+      .catch(console.error);
+
+    resizeWindow();
   }, []);
 
   useEffect(() => {
-    if (location.pathname === "/") {
-      setDarkRoute(true);
-    } else {
-      setDarkRoute(false);
+    resizeWindow();
+  }, [window.innerWidth]);
+
+  useEffect(() => {
+    setDarkRoute(location.pathname === "/");
+    if (location.pathname === "/saved-news") {
+      setSearchResults([]);
     }
   }, [location.pathname]);
 
-  const openModal = (modalName) => {
-    setModalOpen(modalName);
-  };
+  useEffect(() => {
+    setSearchResults((prev) =>
+      prev.map((article, index) => ({
+        ...article,
+        isSaved:
+          index < visibleCards &&
+          savedArticles.some((saved) => saved.url === article.url),
+      })),
+    );
+  }, [savedArticles, visibleCards, searchResults.length]);
 
+  const openModal = (modalName) => setModalOpen(modalName);
   const closeModal = () => {
     setModalOpen("");
     setLoading(false);
+    toggleMobileMenu();
   };
-
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
 
+  const handleArticle = (isSaved, article) => {
+    const { isSaved: _, ...articleData } = article;
+    const action = isSaved ? deleteArticle : addArticle;
+    const param = isSaved ? encodeURIComponent(article.url) : articleData;
+    const updatedArticles = isSaved
+      ? savedArticles.filter((item) => item.url !== article.url)
+      : [...savedArticles, { ...article, isSaved: true }];
+
+    action(param, getToken())
+      .then(() => {
+        setSavedArticles(updatedArticles);
+        closeModal();
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  };
+
+  const signOut = () => {
+    setSavedArticles([]);
+    setSearchResults([]);
+    setCurrentUser({});
+    setLoggedIn(false);
+    removeToken();
+  };
+
   return (
-    <MobileContext.Provider
-      value={{ isMobile, isMobileMenuOpen, toggleMobileMenu }}
-    >
-      <div
-        className={`app app_${isDarkRoute ? "light" : "dark"} ${isMobile && isMobileMenuOpen ? "app_mobile" : ""}`}
+    <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <MobileContext.Provider
+        value={{ isMobile, isMobileMenuOpen, toggleMobileMenu }}
       >
-        <div className={`overlay${isDarkRoute ? "" : "_disabled"}`}>
-          <Header
-            isLoggedIn={isLoggedIn}
-            isDarkRoute={isDarkRoute}
-            openModalClick={openModal}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Main
-                    isLoggedIn={isLoggedIn}
-                    setPreLoading={setPreLoading}
-                    setSearchResults={setSearchResults}
-                  />
-                  {searchResults.length !== 0 && (
-                    <SearchResults
-                      searchResults={searchResults}
-                      isLoggedIn={isLoggedIn}
-                    />
-                  )}
-                  {isPreLoading !== "idle" && (
-                    <Preloader isPreloading={isPreLoading} />
-                  )}
-                  <About />
-                </>
-              }
+        <div
+          className={`app app_${isDarkRoute ? "theme_light" : "theme_dark"} ${isMobile && isMobileMenuOpen ? "app_mobile" : ""}`}
+        >
+          <div className={`overlay${isDarkRoute ? "" : "_disabled"}`}>
+            <Header
+              isLoggedIn={isLoggedIn}
+              isDarkRoute={isDarkRoute}
+              openModalClick={openModal}
+              setLoggedIn={setLoggedIn}
+              signOut={signOut}
             />
-            {/*<ProtectedRoute isLoggedIn={isLoggedIn}>*/}
-            {/*</ProtectedRoute>*/}
-            <Route
-              path="/saved-news"
-              element={
-                <>
-                  <SavedArticles savedArticles={savedArticles} />
-                  {savedArticles.length !== 0 && (
-                    <SearchResults
-                      searchResults={savedArticles}
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Main
                       isLoggedIn={isLoggedIn}
+                      setPreLoading={setPreLoading}
+                      setSearchResults={setSearchResults}
                     />
-                  )}
-                </>
-              }
-            />
-          </Routes>
-          <Footer />
+                    {searchResults.length > 0 && (
+                      <SearchResults
+                        searchResults={searchResults}
+                        isLoggedIn={isLoggedIn}
+                        handleArticle={handleArticle}
+                        visibleCards={visibleCards}
+                        setVisibleCards={setVisibleCards}
+                        openModal={openModal}
+                      />
+                    )}
+                    {isPreLoading !== "idle" && (
+                      <Preloader isPreloading={isPreLoading} />
+                    )}
+                    <About />
+                  </>
+                }
+              />
+              <Route
+                path="/saved-news"
+                element={
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
+                    <SavedArticles savedArticles={savedArticles} />
+                    {savedArticles.length > 0 && (
+                      <SearchResults
+                        searchResults={savedArticles}
+                        isLoggedIn={isLoggedIn}
+                        handleArticle={handleArticle}
+                        openModal={openModal}
+                      />
+                    )}
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+            <Footer />
+          </div>
           {isModalOpen === "login" && (
             <LoginModal
               onOpen={openModal}
@@ -128,8 +191,8 @@ export default function App() {
               isOpen={isModalOpen}
               isLoading={isLoading}
               setLoading={setLoading}
-              // setCurrentUser={setCurrentUser}
               setLoggedIn={setLoggedIn}
+              setSavedArticles={setSavedArticles}
             />
           )}
           {isModalOpen === "register" && (
@@ -139,12 +202,27 @@ export default function App() {
               isOpen={isModalOpen}
               isLoading={isLoading}
               setLoading={setLoading}
-              // setCurrentUser={setCurrentUser}
-              setLoggedIn={setLoggedIn}
+              openModal={openModal}
+            />
+          )}
+          {isModalOpen === "successfully-registration" && (
+            <SuccessfullyRegistrationModal
+              onClose={closeModal}
+              isOpen={isModalOpen}
+              isLoading={isLoading}
+              onClick={() => openModal("login")}
+            />
+          )}
+          {isModalOpen.name === "delete-confirmation" && (
+            <DeleteConfirmationModal
+              onClose={closeModal}
+              isOpen={isModalOpen}
+              isLoading={isLoading}
+              onClick={() => handleArticle(true, isModalOpen.article)}
             />
           )}
         </div>
-      </div>
-    </MobileContext.Provider>
+      </MobileContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
