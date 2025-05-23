@@ -22,6 +22,7 @@ export default function LoginModal({
       password: values["sign-in-password"],
     };
     setLoading(true);
+    console.log(isLoading)
     return signIn(userData)
       .then((user) => {
         if (user.token) {

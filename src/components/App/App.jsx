@@ -102,6 +102,7 @@ export default function App() {
   });
 
   const handleArticle = (isSaved, article) => {
+    setLoading(true);
     const { isSaved: _, ...articleData } = article;
     const action = isSaved ? deleteArticle : addArticle;
     const param = isSaved ? encodeURIComponent(article.url) : articleData;

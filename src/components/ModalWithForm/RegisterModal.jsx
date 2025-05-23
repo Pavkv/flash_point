@@ -28,7 +28,7 @@ export default function RegisterModal({
       name="sign-up"
       title="Sign up"
       buttonText={isLoading ? "Signing up" : "Sign up"}
-      inputs={2}
+      inputs={3}
       onSubmit={handleSubmit}
       setLoading={setLoading}
       redirectText={"Sign in"}

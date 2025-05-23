@@ -46,7 +46,7 @@ export function useFormAndValidation({
 
         setBackendError(message);
       })
-      .finally(setLoading(false));
+      .finally(() => setLoading(false));
   };
 
   const resetForm = useCallback(
