@@ -2,17 +2,29 @@
 
 This is the frontend portion of the **Flash Point** application. It allows users to search for news articles by keyword, view the results, and save favorite articles (when logged in). The app is responsive, supports mobile and desktop layouts, and integrates with the [News API](https://newsapi.org/).
 
-![img_1.png](img_1.png)
+---
+
+## Main Page
+
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/1963b3c5-6337-4369-bdaf-8f4f298d7f9b" />
+
+---
+
+## Saved Articles Page
+
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/a0f972c5-db95-494d-ba2a-f675edf8f8e0" />
 
 ---
 
 ## Link for the back-end of a project
 
+https://github.com/Pavkv/flash_point_back
+
 ---
 
 ## Web Link
 
-https://pavkv.github.io/flash_point/
+https://flashpoint.twilightparadox.com
 
 ---
 
@@ -61,7 +73,7 @@ This project is licensed under the [ISC License](LICENSE).
 ## 👨‍💻 Author
 
 [Pasha Zobov](https://github.com/Pavkv)
-2025 © WTWR
+2025 © FLASH POINT
 
 ---
 
