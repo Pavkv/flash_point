@@ -1,0 +1,141 @@
+.header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 104px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.header:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: #fff;
+  opacity: 0.3;
+  z-index: 2;
+}
+
+.header_theme_light:after {
+  background-color: #fff;
+}
+
+.header_theme_dark:after {
+  background-color: #1a1b22;
+}
+
+.header__logo {
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  margin: auto 0;
+}
+
+.header__nav {
+  position: relative;
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    height: 66px;
+    padding: 0 40px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .header {
+    height: 56px;
+    padding: 0;
+  }
+
+  .header__logo {
+    margin: 0;
+  }
+
+  .header__mobile {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 100%;
+    padding: 0 16px;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+  }
+
+  .header__mobile--theme-light {
+    background-color: #1a1b22;
+  }
+
+  .header__mobile--theme-dark {
+    background-color: #fff;
+  }
+
+  .header__logo {
+    font-size: 16px;
+    line-height: 24px;
+    z-index: 2;
+  }
+
+  .header__mobile-btn {
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-left: auto;
+    z-index: 2;
+  }
+
+  .header__mobile-toggle--theme-light {
+    background-image: url("../../assets/menu-toggle-white-icon.svg");
+  }
+
+  .header__mobile-toggle--theme-dark {
+    background-image: url("../../assets/menu-toggle-black-icon.svg");
+  }
+
+  .header__mobile-close--theme-light {
+    background-image: url("../../assets/close-white-icon.svg");
+  }
+
+  .header__mobile-close--theme-dark {
+    background-image: url("../../assets/close-black-icon.svg");
+  }
+
+  .header__mobile-toggle:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+
+  .header__nav {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 1;
+  }
+
+  .header__nav_visible {
+    opacity: 1;
+    visibility: visible;
+  }
+}

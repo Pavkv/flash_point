@@ -1,0 +1,48 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  width: 608px;
+  padding: 80px 0;
+  margin: 0 auto;
+}
+
+.main__header {
+  font-family: "Roboto Slab", Arial, sans-serif;
+  font-size: 60px;
+  line-height: 64px;
+  margin: 0;
+  font-weight: 400;
+}
+
+.main__text {
+  margin: 32px 0 88px;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 1024px) {
+  .main {
+    width: 452px;
+    padding: 38px 0;
+  }
+
+  .main__header {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .main__text {
+    margin: 16px 0 48px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .main {
+    width: calc(100vw - 32px);
+    padding: 30px 16px;
+  }
+
+  .main__text {
+    margin-bottom: 122px;
+  }
+}

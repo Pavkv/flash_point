@@ -1,0 +1,17 @@
+@import url("vendor/normalize.css");
+@import url("vendor/fonts.css");
+@import url("components/App/App.css");
+@import url("components/Header/Header.css");
+@import url("components/Main/Main.css");
+@import url("components/Footer/Footer.css");
+@import url("components/About/About.css");
+@import url("components/Navigation/Navigation.css");
+@import url("components/NewsCards/NewsCards.css");
+@import url("components/NewsCard/NewsCard.css");
+@import url("components/Preloader/Preloader.css");
+@import url("components/SearchForm/SearchForm.css");
+@import url("components/Modal/Modal.css");
+@import url("components/ModalWithForm/ModalWithForm.css");
+@import url("components/SearchResults/SearchResults.css");
+@import url("components/SavedArticles/SavedArticles.css");
+@import url("components/Modal/NotificationModal.css");

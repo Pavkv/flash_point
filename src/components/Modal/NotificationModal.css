@@ -1,0 +1,31 @@
+.notification-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 36px;
+  gap: 24px;
+}
+
+.notification-modal__text {
+  text-align: center;
+}
+
+.notification-modal__button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  transition: opacity 0.3ms ease-in-out;
+  cursor: pointer;
+}
+
+.notification-modal__button:hover {
+  opacity: 0.6;
+}
+
+.notification-modal__button_confirm {
+  color: #2f71e5;
+}
+
+.notification-modal__button_confirm:hover {
+  color: #347eff;
+}
