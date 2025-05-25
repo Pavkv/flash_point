@@ -4,7 +4,6 @@ import ProtectedRoute from "../../utils/ProtectedRoute.jsx";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import Footer from "../Footer/Footer.jsx";
-import About from "../About/About.jsx";
 import SearchResults from "../SearchResults/SearchResults.jsx";
 import Preloader from "../Preloader/Preloader.jsx";
 import SavedArticles from "../SavedArticles/SavedArticles.jsx";
@@ -95,11 +94,12 @@ export default function App() {
     setLoading(false);
     toggleMobileMenu();
   };
-  const toggleMobileMenu = () => setMobileMenuOpen((prev) => {
-    if (isMobile) {
-      return !prev;
-    }
-  });
+  const toggleMobileMenu = () =>
+    setMobileMenuOpen((prev) => {
+      if (isMobile) {
+        return !prev;
+      }
+    });
 
   const handleArticle = (isSaved, article) => {
     setLoading(true);
@@ -151,22 +151,16 @@ export default function App() {
                     <Main
                       isLoggedIn={isLoggedIn}
                       setPreLoading={setPreLoading}
+                      searchResults={searchResults}
                       setSearchResults={setSearchResults}
+                      handleArticle={handleArticle}
+                      visibleCards={visibleCards}
+                      setVisibleCards={setVisibleCards}
+                      openModal={openModal}
                     />
-                    {searchResults.length > 0 && (
-                      <SearchResults
-                        searchResults={searchResults}
-                        isLoggedIn={isLoggedIn}
-                        handleArticle={handleArticle}
-                        visibleCards={visibleCards}
-                        setVisibleCards={setVisibleCards}
-                        openModal={openModal}
-                      />
-                    )}
                     {isPreLoading !== "idle" && (
                       <Preloader isPreloading={isPreLoading} />
                     )}
-                    <About />
                   </>
                 }
               />
